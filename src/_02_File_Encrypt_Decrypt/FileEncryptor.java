@@ -30,26 +30,18 @@ public class FileEncryptor {
 	 */
 	public String encryptFile(String input, int key) {
 		char[] inputChars = input.toCharArray();
-		char[] alphabet = {
-				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-				'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-		};
 		String output = "";
-		for(int i = 0; i < inputChars.length; i++) {
-			for(int j = 0; j < alphabet.length; j++) {
-				if(inputChars[i] == alphabet[j]) {
-					inputChars[i] = alphabet[j + key];
-					output += inputChars[i];
-				}
-			}
-		}
 		try {
 			FileWriter fw = new FileWriter("src/_02_File_Encrypt_Decrypt/output.txt");
+			for(int i = 0; i < inputChars.length; i++) {
+				inputChars[i] -= key;
+				output += inputChars[i];
+			}
 			fw.write(output);
 			fw.close();
 		}
 		catch(Exception e) {
-			System.out.println("File not found :(");
+			System.out.println("File not found \n:(");
 			e.printStackTrace();
 		}
 		return output;
