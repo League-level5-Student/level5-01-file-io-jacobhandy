@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+import javax.swing.JOptionPane;
+
 public class FileDecryptor {
 	/*
 	 * Decryption is the process of taking encoded or encrypted text or other data
@@ -27,26 +29,31 @@ public class FileDecryptor {
 		char[] inputChars;
 		String output = "";
 		try {
-			FileWriter fw = new FileWriter(filePath);
-			BufferedReader fr = new BufferedReader(new FileReader("src/_02_File_Encrypt_Decrypt/output.txt"));
+			//FileWriter fw = new FileWriter(filePath);
+			BufferedReader fr = new BufferedReader(new FileReader(filePath));
 			String s = fr.readLine();
-			while(s != null) {
-			s = fr.readLine();
-			inputChars = s.toCharArray();
-			for(int i = 0; i < inputChars.length; i++) {
-				inputChars[i] += key;
-				output += inputChars[i];
-			}
-			}
-			
-			fw.write(output);
-			fw.close();
+			System.out.println(s);
+			//while(s != null) {
+				//s = fr.readLine();
+				
+				inputChars = s.toCharArray();
+				for(int i = 0; i < inputChars.length; i++) {
+					inputChars[i] += key;
+					output += inputChars[i];
+					System.out.println(output);
+				}
+			//}
 			fr.close();
+			//fw.write(output);
+			//fw.close();
+			
 		}
 		catch(Exception e) {
 			System.out.println("File not found \n:(");
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+		JOptionPane.showMessageDialog(null, output);
 		return output;
 	}
 }

@@ -28,11 +28,11 @@ public class FileEncryptor {
 	 * Create a program that takes a message and shift value.
 	 * Use any key you want (1 - 25) to shift each letter in the users input and save the final result to a file.
 	 */
-	public String encryptFile(String input, int key) {
+	public String encryptFile(String input, String filePath, int key) {
 		char[] inputChars = input.toCharArray();
 		String output = "";
 		try {
-			FileWriter fw = new FileWriter("src/_02_File_Encrypt_Decrypt/output.txt");
+			FileWriter fw = new FileWriter(filePath);
 			for(int i = 0; i < inputChars.length; i++) {
 				inputChars[i] -= key;
 				output += inputChars[i];
