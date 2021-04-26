@@ -2,6 +2,9 @@ package _03_To_Do_List;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -98,12 +101,39 @@ public class ToDoList implements ActionListener {
 
 	private void LoadList() {
 		// TODO Auto-generated method stub
-		
+		try {
+			String input = JOptionPane.showInputDialog("Enter the file path");
+			BufferedReader br = new BufferedReader(new FileReader(input));
+			String line = br.readLine();
+			while(line != null) {
+				tasks.add(line);
+				line = br.readLine();
+			}
+			br.close();
+		}
+		catch(Exception e) {
+			System.out.println("File not found");
+			JOptionPane.showMessageDialog(null, "ERROR: File not found");
+		}
 	}
 
 	private void SaveList() {
 		// TODO Auto-generated method stub
-		
+		try {
+			FileWriter fw = new FileWriter("src/_03_To_Do_List/List.txt");
+			for(int i = 0; i < tasks.size(); i++) {
+			if(i != 0) {
+			fw.write("\n" + tasks.get(i));
+			}
+			else if (i == 0) {
+				fw.write(tasks.get(i));
+			}
+			}
+			fw.close();
+		}
+		catch(Exception e) {
+			System.out.println("File not found");
+		}
 	}
 
 	private String ViewTasks() {
@@ -127,7 +157,7 @@ public class ToDoList implements ActionListener {
 		try {
 		int input = Integer.parseInt(JOptionPane.showInputDialog("What number task would you like to delete?"));
 		if(tasks.size() > 1) {
-		tasks.remove(input + 1);
+		tasks.remove(input - 1);
 		}
 		else if(tasks.size() == 0) {
 			JOptionPane.showMessageDialog(null, "You don't have any tasks to remove");
